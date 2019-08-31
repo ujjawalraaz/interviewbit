@@ -1,0 +1,32 @@
+#include<vector>
+vector<int> stk, auxstk;
+
+MinStack::MinStack() {
+    stk.clear();
+    auxstk.clear();
+}
+
+void MinStack::push(int x) {
+    stk.push_back(x);
+    if(auxstk.empty() || x <= auxstk.back())
+        auxstk.push_back(x);
+    return;
+}
+
+void MinStack::pop() {
+    if(!stk.empty()){
+        if(stk.back()==auxstk.back()) auxstk.pop_back();
+        stk.pop_back();
+    }
+    return;
+}
+
+int MinStack::top() {
+    if(!stk.empty()) return stk.back();
+    return -1;
+}
+
+int MinStack::getMin() {
+    if(!auxstk.empty()) return auxstk.back();
+    return -1;
+}
